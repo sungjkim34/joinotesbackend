@@ -8,7 +8,6 @@ var cors = require('cors');
 var moment = require('moment');
 
 const ENV = require('./env');
-const CONST = require('./const');
 
 var app = express();
 var server = http.Server(app);
