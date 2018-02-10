@@ -13,9 +13,11 @@ module.exports = function(app, con){
         var user = {
             username: req.body.username,
             password: req.body.password,
-            studentId
+            email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName
         }
-        var sql = 'INSERT INTO accounts (username, password, email, studentId) VALUES (\'' + user.username + '\', \'' + user.password + '\', \'' + user.accountType + '\', \'' + user.personId + '\')';
+        var sql = 'INSERT INTO accounts (username, password, email, firstName, lastName) VALUES (\'' + user.username + '\', \'' + user.password + '\', \'' + user.email + '\', \'' + user.firstName + '\', \'' + user.lastName + '\')';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);
@@ -25,7 +27,9 @@ module.exports = function(app, con){
     app.get('/checkUsername/:username', function(req, res) {
         var username = req.params.username;
         var sql = 'SELECT * FROM accounts WHERE username = \'' + username + '\'';
+        console.log(sql)
         con.query(sql, (err, result, fields) => {
+            console.log(result);
             if(err) res.send(err);
             res.send(!!result.length);
         });
