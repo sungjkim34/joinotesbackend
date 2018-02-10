@@ -22,4 +22,9 @@ server.listen(ENV.port, () => console.log('Starting server on port ' + ENV.port)
 app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/public/index.html')));
 
 // Routing
-// require('./routes/---')(app, con);
+require('./routes/account')(app, con);
+// require('./routes/class')(app, con);
+// require('./routes/enrollment')(app, con);
+require('./routes/message')(app, con, io, moment);
+// require('./routes/note')(app, con);
+require('./routes/student')(app, con);
