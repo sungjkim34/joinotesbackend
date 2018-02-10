@@ -13,6 +13,7 @@ module.exports = function(app, con){
         var user = {
             username: req.body.username,
             password: req.body.password,
+            email: req.body.email,
             firstName: req.body.firstName,
             lastName: req.body.lastName
         }
