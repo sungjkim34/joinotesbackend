@@ -28,9 +28,7 @@ module.exports = function(app, con){
     app.get('/checkUsername/:username', function(req, res) {
         var username = req.params.username;
         var sql = 'SELECT * FROM accounts WHERE username = \'' + username + '\'';
-        console.log(sql)
         con.query(sql, (err, result, fields) => {
-            console.log(result);
             if(err) res.send(err);
             res.send(!!result.length);
         });
