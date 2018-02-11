@@ -58,7 +58,7 @@ module.exports = function(app, con){
     });
 
     app.get('/getAccountCount', function(req, res) {
-        var sql = 'SELECT COUNT(*) FROM students';
+        var sql = 'SELECT COUNT(*) FROM accounts';
         con.query(sql, (err, result, fields) => {
             if(err) res.send(err);
             res.send(result);
