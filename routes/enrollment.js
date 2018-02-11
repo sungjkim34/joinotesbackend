@@ -28,7 +28,7 @@ module.exports = function(app, con, moment){
         });
     });
 
-    app.post('/getStudentEnrollment/:studentId', function(req, res) {
+    app.get('/getStudentEnrollment/:studentId', function(req, res) {
         var studentId = req.params.studentId;
 
         var sql = 'SELECT * FROM enrollments WHERE studentId = ' + studentId;
@@ -38,7 +38,7 @@ module.exports = function(app, con, moment){
         });
     });
 
-    app.post('/getStudentEnrollmentDetailed/:studentId', function(req, res) {
+    app.get('/getStudentEnrollmentDetailed/:studentId', function(req, res) {
         var studentId = req.params.studentId;
 
         var sql = 'SELECT enrollment.id as enrollmentId, class.id as classId, studentId, classId, name, courseName, firstName, lastName, courseId FROM enrollments as enrollment INNER JOIN classes as class ON enrollment.classId = class.id INNER JOIN professors as professor on class.professorId = professor.id WHERE studentId = ' + studentId;
