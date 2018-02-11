@@ -3,7 +3,7 @@ module.exports = function(app, con){
     app.post('/authUser', function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
-        var sql = 'SELECT id, username, email, firstName, lastName FROM accounts WHERE username = \'' + username + '\' AND password = \'' + password + '\'';
+        var sql = 'SELECT id, username, email, firstName, lastName, showEnrolled FROM accounts WHERE username = \'' + username + '\' AND password = \'' + password + '\'';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result && result);
