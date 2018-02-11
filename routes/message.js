@@ -1,4 +1,5 @@
 module.exports = function(app, con, io, moment){
+    
     app.get('/getAllMessages', function(req, res) {
         var sql = 'SELECT * FROM message';
         con.query(sql, (err, result, fields) => {
