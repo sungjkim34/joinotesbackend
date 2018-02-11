@@ -22,8 +22,9 @@ module.exports = function(app, con){
             lastName: req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1),
             dob: req.body.dob,
             major: req.body.major,
+            accountId: req.body.accountId
         };
-        var sql = 'INSERT INTO students (firstName, lastName, dob, major) VALUES (\'' + student.firstName + '\', \'' + student.lastName + '\', \'' + student.dob + '\', \'' + student.majorst + '\')';
+        var sql = 'INSERT INTO students (firstName, lastName, dob, major, accountId) VALUES (\'' + student.firstName + '\', \'' + student.lastName + '\', \'' + student.dob + '\', \'' + student.major + '\', \'' + student.accountId + '\')';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);
@@ -36,7 +37,7 @@ module.exports = function(app, con){
         var sql = 'DELETE FROM students WHERE id = ' + studentId;
         con.query(sql, (err, result) => {
             // TODO: JOIN SQL QUERIES INTO ONE
-            var sql2 = 'DELETE FROM accounts WHERE personId = ' + studentId + ' AND accountType = \'student\'';
+            var sql2 = 'DELETE FROM accounts WHERE studentId = ' + studentId + ' AND accountType = \'student\'';
             con.query(sql2, (err, result) => {
                 if(err) res.send(err);
                 res.send(result);

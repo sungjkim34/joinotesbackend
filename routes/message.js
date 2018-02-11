@@ -20,7 +20,7 @@ module.exports = function(app, con, io, moment){
     io.on('connection', socket => {
         socket.on('sendMessage', message => {
             const { messageText, accountId, firstName, lastName } = message;
-            const messageDate = moment(message.messageDate).format('YYYY-MM-DD HH:mm:ss');
+            const messageDate = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
             var sql = 'INSERT INTO message (messageText, messageDate, accountId, firstName, lastName) VALUES (\'' + messageText + '\', \'' + messageDate + '\', \'' + accountId + '\', \'' + firstName + '\', \'' + lastName + '\')';
             con.query(sql, (err, result) => {
                 if(err) console.log(err);
