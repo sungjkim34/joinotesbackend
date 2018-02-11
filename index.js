@@ -23,8 +23,8 @@ app.get('/', (request, response) => response.sendFile(path.join(__dirname, '/pub
 
 // Routing
 require('./routes/account')(app, con);
-// require('./routes/class')(app, con);
-// require('./routes/enrollment')(app, con);
+require('./routes/class')(app, con);
+require('./routes/enrollment')(app, con);
 require('./routes/message')(app, con, io, moment);
-// require('./routes/note')(app, con);
+require('./routes/note')(app, con, moment);
 require('./routes/student')(app, con);

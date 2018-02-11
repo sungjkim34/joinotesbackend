@@ -1,10 +1,10 @@
-module.exports = function(app, con){
+module.exports = function(app, con, moment){
 
     app.post('/addNote', function(req, res) {
         var note = {
             topicName: req.body.topicName,
             studentId: req.body.studentId,
-            //const Date = moment().format('L'),
+            var d = new Date(req.body.date),
             classId: req.body.classId,
         };
         var sql = 'INSERT INTO notes (topicName, studentId, date,  classId) VALUES (\'' + note.topicName + '\', \'' + note.studentId + '\', \'' + note.date + '\', \'' + note.classId + '\')';
@@ -22,5 +22,7 @@ module.exports = function(app, con){
             res.send(result);
         });
     });
+
+
 
 }
