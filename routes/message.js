@@ -1,7 +1,7 @@
 module.exports = function(app, con, io, moment){
     
     app.get('/getAllMessages', function(req, res) {
-        var sql = 'SELECT * FROM message';
+        var sql = 'SELECT * FROM messages';
         con.query(sql, (err, result, fields) => {
             if(err) res.send(err);
             res.send(result);
@@ -11,7 +11,7 @@ module.exports = function(app, con, io, moment){
     //TODO
     app.get('/deleteMessage/:messageId', function(req, res) {
         var messageId = req.params.messageId;
-        var sql = 'DELETE FROM message WHERE id = ' + messageId;
+        var sql = 'DELETE FROM messages WHERE id = ' + messageId;
         con.query(sql, (err, result, fields) => {
             if(err) res.send(err);
             res.send(result);
@@ -22,7 +22,7 @@ module.exports = function(app, con, io, moment){
         socket.on('sendMessage', message => {
             const { messageText, accountId, firstName, lastName } = message;
             const messageDate = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-            var sql = 'INSERT INTO message (messageText, messageDate, accountId, firstName, lastName) VALUES (\'' + messageText + '\', \'' + messageDate + '\', \'' + accountId + '\', \'' + firstName + '\', \'' + lastName + '\')';
+            var sql = 'INSERT INTO messages (messageText, messageDate, accountId, firstName, lastName) VALUES (\'' + messageText + '\', \'' + messageDate + '\', \'' + accountId + '\', \'' + firstName + '\', \'' + lastName + '\')';
             con.query(sql, (err, result) => {
                 if(err) console.log(err);
                 message.messageDate = messageDate;
