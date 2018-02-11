@@ -1,7 +1,7 @@
 module.exports = function(app, con, moment){
 
     app.get('/getAllNotes', function(req, res) {
-        var sql = 'SELECT * FROM notes';
+        var sql = 'SELECT id, date, classId, title, accountId FROM notes';
         con.query(sql, (err, result, fields) => {
             if(err) res.send(err);
             res.send(result);
@@ -11,7 +11,17 @@ module.exports = function(app, con, moment){
     app.get('/getClassNotes/:classId', function(req, res) {
         var classId = req.params.classId;
 
-        var sql = 'SELECT * FROM notes WHERE classId = ' + classId;
+        var sql = 'SELECT note.id as id, date, classId, title, accountId, username, firstName, lastName FROM notes as note INNER JOIN accounts as account ON account.id = note.accountId WHERE classId = ' + classId;
+        con.query(sql, (err, result, fields) => {
+            if(err) res.send(err);
+            res.send(result);
+        });
+    });
+
+    app.get('/getNoteDetail/:noteId', function(req, res) {
+        var noteId = req.params.noteId;
+
+        var sql = 'SELECT detail FROM notes WHERE id = ' + noteId;
         con.query(sql, (err, result, fields) => {
             if(err) res.send(err);
             res.send(result);
