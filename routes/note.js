@@ -52,4 +52,14 @@ module.exports = function(app, con, moment){
         });
     });
 
+    app.get('/getNoteCount/:accountId', function(req, res) {
+        var accountId = req.params.accountId;
+
+        var sql = 'SELECT COUNT(*) FROM notes WHERE accountId = ' + accountId;
+        con.query(sql, (err, result, fields) => {
+            if(err) res.send(err);
+            res.send(result);
+        });
+    });
+
 }
