@@ -4,10 +4,10 @@ module.exports = function(app, con, moment){
         var note = {
             topicName: req.body.topicName,
             studentId: req.body.studentId,
-            var d = new Date(req.body.date),
+            date: moment(req.body.date).format('YYYY-MM-DD HH:mm:ss'),
             classId: req.body.classId,
         };
-        var sql = 'INSERT INTO notes (topicName, studentId, date,  classId) VALUES (\'' + note.topicName + '\', \'' + note.studentId + '\', \'' + note.date + '\', \'' + note.classId + '\')';
+        var sql = 'INSERT INTO notes (topicName, studentId, date, classId) VALUES (\'' + note.topicName + '\', \'' + note.studentId + '\', \'' + note.date + '\', \'' + note.classId + '\')';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);
