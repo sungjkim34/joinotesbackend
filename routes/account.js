@@ -18,7 +18,7 @@ module.exports = function(app, con){
             firstName: req.body.firstName.charAt(0).toUpperCase() + req.body.firstName.slice(1),
             lastName: req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1)
         }
-        var sql = 'INSERT INTO accounts (username, password, email, firstName, lastName, showEnrolled) VALUES (\'' + user.username + '\', \'' + user.password + '\', \'' + user.email + '\', \'' + user.firstName + '\', \'' + user.lastName + '\', \'' + false + '\')';
+        var sql = 'INSERT INTO accounts (username, password, email, firstName, lastName, showEnrolled) VALUES (\'' + user.username + '\', \'' + user.password + '\', \'' + user.email + '\', \'' + user.firstName + '\', \'' + user.lastName + '\', ' + 0 + ')';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);
