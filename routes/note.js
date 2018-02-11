@@ -11,7 +11,7 @@ module.exports = function(app, con, moment){
     app.get('/getClassNotes/:classId', function(req, res) {
         var classId = req.params.classId;
 
-        var sql = 'SELECT note.id as id, date, classId, title, accountId, username, firstName, lastName FROM notes as note INNER JOIN accounts as account ON account.id = note.accountId WHERE classId = ' + classId;
+        var sql = 'SELECT note.id as id, date, classId, title, accountId, username, firstName, lastName FROM notes as note INNER JOIN accounts as account ON account.id = note.accountId WHERE classId = ' + classId + ' ORDER BY date DESC';
         con.query(sql, (err, result, fields) => {
             if(err) res.send(err);
             res.send(result);
@@ -30,13 +30,13 @@ module.exports = function(app, con, moment){
 
     app.post('/addNote', function(req, res) {
         var note = {
-            title: req.body.note.title,
-            accountId: req.body.note.accountId,
-            date: moment(req.body.note.date).format('YYYY-MM-DD HH:mm:ss'),
-            classId: req.body.note.classId,
-            detail: req.body.note.detail
+            title: req.body.title,
+            accountId: req.body.accountId,
+            classId: req.body.classId,
+            detail: req.body.detail,
+            date: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
         };
-        var sql = 'INSERT INTO notes (topicName, accountId, date, classId, detail) VALUES (\'' + note.title + '\', \'' + note.accountId + '\', \'' + note.date + '\', \'' + note.classId + '\', \'' + note.detail + '\')';
+        var sql = 'INSERT INTO notes (title, accountId, date, classId, detail) VALUES (\'' + note.title + '\', \'' + note.accountId + '\', \'' + note.date + '\', \'' + note.classId + '\', \'' + note.detail + '\')';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);
