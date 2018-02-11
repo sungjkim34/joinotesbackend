@@ -40,7 +40,7 @@ module.exports = function(app, con, moment){
     app.get('/getAccountEnrollmentDetailed/:accountId', function(req, res) {
         var accountId = req.params.accountId;
 
-        var sql = 'SELECT enrollment.id as id, class.id as classId, accountId, classId, name, courseName, firstName, lastName, courseId FROM enrollments as enrollment INNER JOIN classes as class ON enrollment.classId = class.id INNER JOIN professors as professor on class.professorId = professor.id WHERE accountId = ' + accountId;
+        var sql = 'SELECT enrollment.id as enrollmentId, class.id as id, accountId, classId, name, courseName, firstName, lastName, courseId FROM enrollments as enrollment INNER JOIN classes as class ON enrollment.classId = class.id INNER JOIN professors as professor on class.professorId = professor.id WHERE accountId = ' + accountId;
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);
