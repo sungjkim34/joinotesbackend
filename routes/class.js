@@ -8,6 +8,14 @@ module.exports = function(app, con){
         });
     });
 
+    app.get('/getAllClassesDetailed', function(req, res) {
+        var sql = 'SELECT * FROM classes as class INNER JOIN professors as professor ON class.professorId = professor.id';
+        con.query(sql, (err, result, fields) => {
+            if(err) res.send(err);
+            res.send(result);
+        });
+    });
+
     app.post('/addClass', function(req, res) {
         var classInfo = {
             id: req.body.id,
