@@ -27,4 +27,3 @@ require('./routes/class')(app, con);
 require('./routes/enrollment')(app, con);
 require('./routes/message')(app, con, io, moment);
 require('./routes/note')(app, con, moment);
-require('./routes/student')(app, con);

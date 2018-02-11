@@ -9,9 +9,9 @@ module.exports = function(app, con, moment){
     });
 
     app.post('/enrollClass', function(req, res) {
-        var studentId = req.body.studentId;
+        var accountId = req.body.accountId;
         var classId = req.body.classId;
-        var sql = 'INSERT INTO enrollments (studentId, classId) VALUES (\'' + studentId + '\', \'' + classId + '\')';
+        var sql = 'INSERT INTO enrollments (accountId, classId) VALUES (\'' + accountId + '\', \'' + classId + '\')';
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);
@@ -28,20 +28,20 @@ module.exports = function(app, con, moment){
         });
     });
 
-    app.get('/getStudentEnrollment/:studentId', function(req, res) {
-        var studentId = req.params.studentId;
+    app.get('/getAccountEnrollment/:accountId', function(req, res) {
+        var accountId = req.params.accountId;
 
-        var sql = 'SELECT * FROM enrollments WHERE studentId = ' + studentId;
+        var sql = 'SELECT * FROM enrollments WHERE accountId = ' + accountId;
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);
         });
     });
 
-    app.get('/getStudentEnrollmentDetailed/:studentId', function(req, res) {
-        var studentId = req.params.studentId;
+    app.get('/getAccountEnrollmentDetailed/:accountId', function(req, res) {
+        var accountId = req.params.accountId;
 
-        var sql = 'SELECT enrollment.id as enrollmentId, class.id as classId, studentId, classId, name, courseName, firstName, lastName, courseId FROM enrollments as enrollment INNER JOIN classes as class ON enrollment.classId = class.id INNER JOIN professors as professor on class.professorId = professor.id WHERE studentId = ' + studentId;
+        var sql = 'SELECT enrollment.id as enrollmentId, class.id as classId, accountId, classId, name, courseName, firstName, lastName, courseId FROM enrollments as enrollment INNER JOIN classes as class ON enrollment.classId = class.id INNER JOIN professors as professor on class.professorId = professor.id WHERE accountId = ' + accountId;
         con.query(sql, (err, result) => {
             if(err) res.send(err);
             res.send(result);

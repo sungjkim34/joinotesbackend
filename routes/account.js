@@ -1,4 +1,5 @@
 module.exports = function(app, con){
+
     app.post('/authUser', function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
@@ -14,8 +15,8 @@ module.exports = function(app, con){
             username: req.body.username,
             password: req.body.password,
             email: req.body.email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
+            firstName: req.body.firstName.charAt(0).toUpperCase() + req.body.firstName.slice(1),
+            lastName: req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1)
         }
         var sql = 'INSERT INTO accounts (username, password, email, firstName, lastName) VALUES (\'' + user.username + '\', \'' + user.password + '\', \'' + user.email + '\', \'' + user.firstName + '\', \'' + user.lastName + '\')';
         con.query(sql, (err, result) => {
@@ -51,5 +52,10 @@ module.exports = function(app, con){
             if(err) res.send(err);
             res.send(result);
         });
+    });
+
+    app.get('/getAccount/:accountId', function(req, res){
+        var accountId = req.params.accountId;
+        var sql = 'SELECT username, email, firstName, lastName, dob, major FROM accounts WHERE id = ' + accountId;
     });
 }
