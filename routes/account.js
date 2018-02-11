@@ -56,4 +56,12 @@ module.exports = function(app, con){
         var accountId = req.params.accountId;
         var sql = 'SELECT username, email, firstName, lastName, dob, major FROM accounts WHERE id = ' + accountId;
     });
+
+    app.get('/getAccountCount', function(req, res) {
+        var sql = 'SELECT COUNT(*) FROM students';
+        con.query(sql, (err, result, fields) => {
+            if(err) res.send(err);
+            res.send(result);
+        });
+    });
 }
